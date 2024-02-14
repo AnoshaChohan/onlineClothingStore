@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,19 +12,25 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string[]  ...$guards
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next, ...$guards): Response
     {
-        if ($guard == "admin" && Auth::guard($guard)->check()) {
-            return redirect('/admin');
-            }
-            if ($guard == "author" && Auth::guard($guard)->check()) {
-            return redirect('/author');
-            }
+        foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+                if ($guard === "admin") {
+                    return redirect('/admin');
+                } elseif ($guard === "author") {
+                    return redirect('/author');
+                } else {
+                    return redirect('/home');
+                }
             }
-            return $next($request);
+        }
+
+        return $next($request);
     }
 }

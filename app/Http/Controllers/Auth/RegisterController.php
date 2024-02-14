@@ -55,14 +55,25 @@ class RegisterController extends Controller
     {
     return view('auth.register', ['url' => 'author']);
     }
-    protected function create(array $data)
-{
-return User::create([
-'name' => $data['name'],
-'email' => $data['email'],
-'password' => Hash::make($data['password']),
-]);
-}
+    
+    public function create(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name'=> 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+        ]);
+    
+        User::create([
+            'name'=> $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+    
+        // Redirect the user after successful registrations
+        return redirect()->intended('/');
+    }
+    
 /**
 * @param Request $request
 *

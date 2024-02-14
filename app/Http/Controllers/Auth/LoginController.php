@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\User;
+
 use Auth;
 class LoginController extends Controller
 {
@@ -37,7 +40,8 @@ $this->middleware('guest:author')->except('logout');
 public function showAdminLoginForm()
 {
     return view('auth.login', ['url' => 'admin']);
-    }
+}
+
     public function adminLogin(Request $request)
     {
     $this->validate($request, [
@@ -49,19 +53,32 @@ public function showAdminLoginForm()
     }
     return back()->withInput($request->only('email', 'remember'));
     }
+    
     public function showAuthorLoginForm()
     {
     return view('auth.login', ['url' => 'author']);
     }
-    public function authorLogin(Request $request)
+    
+    public function userLogin(Request $request)
     {
+        
     $this->validate($request, [
     'email' => 'required|email',
     'password' => 'required|min:6'
     ]);
-    if (Auth::guard('author')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-    return redirect()->intended('/author');
+
+    // $user = User::where('email', $request->email)->first();
+
+    // if (!$user) {
+    //     // If user is not registered, redirect to register page with input data and error message
+    //     return redirect()->route('/login')->withInput($request->only('email', 'remember'))->withErrors([
+    //         'email' => 'Please register with the provided email before logging in.'
+    //     ]);
+    // }
+
+    if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+    return redirect()->intended('/');
     }
-    return back()->withInput($request->only('email', 'remember'));
-    }
-    }
+    return redirect()->route('register')->withInput($request->only('email', 'remember'));
+}    }
+    
