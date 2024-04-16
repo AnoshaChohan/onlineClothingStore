@@ -67,18 +67,11 @@ public function showAdminLoginForm()
     'password' => 'required|min:6'
     ]);
 
-    // $user = User::where('email', $request->email)->first();
-
-    // if (!$user) {
-    //     // If user is not registered, redirect to register page with input data and error message
-    //     return redirect()->route('/login')->withInput($request->only('email', 'remember'))->withErrors([
-    //         'email' => 'Please register with the provided email before logging in.'
-    //     ]);
-    // }
-
     if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
     return redirect()->intended('/');
     }
     return redirect()->route('register')->withInput($request->only('email', 'remember'));
-}    }
+}    
+
+}
     

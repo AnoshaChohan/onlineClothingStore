@@ -80,7 +80,49 @@ body {
     left:0;
 
 
+
 }
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Vertical line */
+.vertical-line {
+  border-left: 1px solid #ccc;
+  height: 100%;
+  margin: 0 8px;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align items in the center horizontally */
+  justify-content: flex-start; /* Start from the top */
+}
+
+
+  
 
 /* Additional styles */
 #h1{
@@ -139,6 +181,20 @@ left:20px
     display: none;
 }
  
+#hero1 {
+    background-image: url('/images/men/p1.png');
+    height: 90vh;
+    width: 100%;
+    background-size : cover;
+    background-position: top 25% right 5%;
+    padding: 100px 80px 0; /* Adjust top padding to move the content down */
+    /* Other properties */
+    align-items:flex-start;
+    justify-content: centre;
+    flex-direction: row;
+
+}
+
 #hero {
     background-image: url('/images/hero4.png');
     height: 90vh;
@@ -1379,8 +1435,102 @@ outline: none;
     padding-right: 80px;
 
 }
+
+/* sproducts view */
+.pro .quick-view-btn {
+    display: none; /* Initially hide the button */
+    position: absolute; /* Position the button over the image */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: #0f0f10;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pro:hover .quick-view-btn {
+    display: block; /* Show the button when hovering over the product */
+    text-align: center;
+}
+
+.quick-view-btn:hover {
+    background-color: #0d0d0e; /* Change button background color on hover */
+}
+ 
+
+/* Error */
+.error {
+    color: red;
+    display: block;
+    margin-top: 5px; /* Adjust as needed */
+
+}
+
+.error::before {
+    margin-right: 5px; /* Adjust as needed */
     
-    
+}
+/* sproducts page */
+
+.normal.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+
+
+
+
     @media(max-width:799px)
 {
     .section-p1{
@@ -1667,3 +1817,18 @@ outline: none;
         padding: 20px;
     }
 }
+
+.container{
+
+        
+    margin: 6rem auto 9rem;
+    max-width: 40.4rem;
+    padding: 0 1.5rem;
+    text-align: center;
+
+
+}
+  
+  .lh-condensed { line-height: 1.25; }
+  
+  

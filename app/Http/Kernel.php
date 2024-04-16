@@ -22,6 +22,13 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
+// app/Http/Kernel.php
+
+protected $routeMiddleware = [
+    // Other middleware...
+    'admin' => \App\Http\Middleware\AdminMiddleware::class,
+];
+
 
     /**
      * The application's route middleware groups.

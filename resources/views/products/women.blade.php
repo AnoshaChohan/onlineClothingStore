@@ -1,23 +1,53 @@
+
+
 @include('header')
-@include('header2')
 
+<div id ="hero1">
 
-<div class="tagImage">
-        <img src="{{ asset('images/womenPageTagImage.jpg') }}" alt="TagImageWomen">
-        <!-- Replace 'your_logo_image.png' with your actual logo file name -->
+    <h2>#stayhome</h2>
+    <p>Spotlight on utility</p>
+</div>
+
+   
+<section id="product1" class="section-p1">
+    <div class="pro-container">
+        @foreach($products as $product)
+            <div class="pro">
+                <a href="/sproductView/{{ $product->id }}" class="quick-view-link">
+                        <img src="{{ asset('images/products/women' . $product->id . '.jpg') }}" alt="{{ $product->name }}">
+                </a>
+                <div class="des">
+                    <span>{{ $product->brand }}</span>
+                    <h5>{{ $product->name }}</h5>
+                    <div class="star">
+                        @for ($i = 0; $i < $product->rating; $i++)
+                            <i class="fas fa-star"></i>
+                        @endfor
+                    </div>
+                    <h4>${{ $product->price }}</h4>
+                    
+                    <a href="/sproductView/{{ $product->id }}" class="quick-view-btn">QUICK VIEW</a>
+                   
+                </div>
+            </div>
+        @endforeach
     </div>
-
-
-    <div class="circle">
-        <div>
-        <img src ="{{asset('images/womenWinter.jpg')}}" alt="cicleWomenWinter">
-        <a href="womenWinter">Winter Collection</a>
-        </div>
-        <div>
-        <img src ="{{asset('images/summerwomen.jpg')}}" alt="cicleWomenSummer">
-        <a href="summerWinter">Summer Collection</a>
-        </div>
-    </div> 
+</section>
 
 
 
+
+<section id="pagination" class="section-p1">
+    <a href= "#">1</a>
+    <a href= "#">2</a>
+    <a href= "#"><i class="fal fa-long-arrow-alt-right"></i></a>
+
+
+
+@include('footer')
+
+
+<link href="{{ asset('components/sxript.js') }}" rel="stylesheet">    <!-- Assuming your CSS file is in public/css/style.css -->
+
+
+</body>

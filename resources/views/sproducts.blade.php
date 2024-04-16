@@ -1,84 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
+@include('header')
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tech2etc Ecommerce Tutorial</title>
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
 
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">    <!-- Assuming your CSS file is in public/css/style.css -->
-    </head>
-<body>
-    <div id="header">
-        <a href="#"><img src="images/logo.png" class="logo" alt=""></a>
-        <div>
-        <ul id="navbar">
-                <li><a class="active" href="{{ url('/') }}">HOME</a></li>
-                <li><a href="{{ url('/shop') }}">SHOP</a></li>
-                <li><a href="{{ url('/blog') }}">BLOG</a></li>
-                <li><a href="{{ url('/about') }}">ABOUT</a></li>
-                <li><a href="{{ url('/contactUs') }}">CONTACT</a></li>
-                <li id="lg-bag"><a href="{{ url('/cart') }}"><i class="far fa-shopping-bag"></i></a></li>
-                <li id="lg-profile"><a href="{{ url('/profile') }}"><i class="fa-solid fa-user"></i></a></li>                
-                <a href="#" id="close"><i class="far fa-times"></i></a>
-            </ul>
-        </div>
-        <div id="mobile">
-            <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
-            <i id="bar" class="fas fa-outdent"></i>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Form Styling */
+.modal-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal-form input[type="text"],
+.modal-form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+.modal-form input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.modal-form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+.modal-content {
+    width: 40%; /* Adjust width as needed */
+    margin: 0 auto; /* Center the modal horizontally */
+}
+
+/* Adjustments to make the modal centered vertically */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.centered {
+    text-align: center;
+    margin-top: 20px; /* Adjust margin-top as needed */
+}
+
+
+
+</style>
+
+
+<!-- <div id="sizeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-form">
+            <label for="height">Height (cm)</label>
+            <input type="text" id="height" name="height" placeholder="Enter your height in cm">
+
+            <label for="weight">Weight (kg)</label>
+            <input type="text" id="weight" name="weight" placeholder="Enter your weight in kg">
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age">
+
+            <input type="submit" id="continueBtn" value="MY SIZE">
+            <div id="sizePlaceholder" class="centered">
+                <label for="size" style="font-weight: bold; font-size: 18px;">Your Size: <span id="size" style="color: #088F8F;"></span></label>
+            </div>
         </div>
     </div>
-    
-  <section id="prodetails" class="section-p1">
-        <div class="single-pro-image">
-            <img src="images/products/f1.jpg" width="100%" id="MainImg" alt="">
-        
-        
-            <div class="small-img-group">
-                <div class="small-img-col">
-                    <img src="images/products/f1.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="images/products/f2.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="images/products/f3.jpg" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="images/products/f4.jpg" width="100%" class="small-img" alt="">
+</div> -->
+
+<div id="sizeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-form">
+                <label for="height">Height (cm)</label>
+                <input type="text" id="height" name="height" placeholder="Enter your height in cm">
+
+                <label for="weight">Weight (kg)</label>
+                <input type="text" id="weight" name="weight" placeholder="Enter your weight in kg">
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="Enter your age">
+
+                <input type="submit" id="continueBtn" value="MY SIZE">
+                <div id="sizePlaceholder" class="centered">
+                    <label for="size" style="font-weight: bold; font-size: 18px;">Your Size: <span id="size" style="color: #088F8F;"></span></label>
                 </div>
             </div>
         </div>
+</div>
 
-        <div class="single-pro-details">
-        <h6> Home / T-Shirts </h6>
-        <h4> Men's Fashion T Shirt </h4>
-        <h2> $139.00 </h2>
-        <select>
-        <option>Select Size </option>
-        <option>XL </option>
-        <option>XXL</option>
-        <option>Small</option>
-        <option>Large</option>
 
+
+<section id="prodetails" class="section-p1">
+    <div class="single-pro-image">
+        <img src="{{ asset('images/products/' . $product->id . '.jpg') }}" width="100%" id="MainImg" alt="{{ $product->name }}">
+        
+        <div class="small-img-group">
+            <div class="small-img-col">
+                <img src="{{ asset('images/products/' . $product->id . '.jpg') }}" width="100%" class="small-img" alt="{{ $product->name }}">
+            </div>
+            <div class="small-img-col">
+                <img src="{{ asset('images/products/' . $product->id . '.jpg') }}" width="100%" class="small-img" alt="{{ $product->name }}">
+            </div>
+            <div class="small-img-col">
+                <img src="{{ asset('images/products/' . $product->id . '.jpg') }}" width="100%" class="small-img" alt="{{ $product->name }}">
+            </div>
+            <div class="small-img-col">
+                <img src="{{ asset('images/products/' . $product->id . '.jpg') }}" width="100%" class="small-img" alt="{{ $product->name }}">
+            </div>
+
+    
+        </div>
+    </div>
+
+    
+  
+
+   
+<div class="single-pro-details">
+    <h6> Home / {{ $product->category }} </h6>
+    <h4>{{ $product->name }}</h4>
+    <h2> ${{ $product->price }}</h2>
+    <form action="/add-to-cart" method="post">
+        @csrf
+        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+        <a href="https://www.calculatored.com/dress-size-calculator" target="_blank" style="color: #2d68a8;">Need help with size?</a>
+        <a href="https://wa.me/601160643924?text=Hello%2C%20I%20want%20to%20place%20an%20order" style="color: #2d68a8; text-decoration: none; margin-right: 10px; float: right; margin-top: 5px;">Place Order</a>
+
+        <select name="size" style="padding-right: 150px;">
+            <option disabled selected>Select Size</option>
+            <option>XL</option>
+            <option>XXL</option>
+            <option>Small</option>
+            <option>Large</option>
         </select>
-        <input type="number" value="1">
-        <button class="normal"> Add To Cart </button>
-        <h4>Product Details </h4>
-        <span>A dress (also known as a frock or a gown) is a 
-            garment traditionally worn by women or girls consisting
-             of a skirt with an attached bodice (or a matching bodice 
-             giving the effect of a one-piece garment).</span>
-        </div>
+
+        <!-- <div style="text-align: center; margin-top: 5px;">
+                <a href="#" id="openModalBtn" style="color: #088F8F; text-decoration: none;">! Need help with size</a>
+            </div> -->
+        <span class="error">@error('size') *{{ $message }} @enderror</span>
+
+        <br>
+        <input type="number" name="quantity" value="1" min="1">
+        <br>
+        <button id="add-to-cart-btn" class="normal">Add To Cart</button>
+    </form>
+    <h4>Product Details</h4>
+    <span>{{ $product->description }}</span>
+</div>
 
 
-        </div>
+
 </section>
 
-<section id="product1" class="section-p1">
+
+
+
+
+<!-- <section id="product1" class="section-p1">
         <h2> Featured Images</h2>
         <p> Summer collection New Morgan Design</p>
     <div class="pro-container">
@@ -156,100 +278,91 @@
  
     </div>
 
-</section>
+</section> -->
 
 
+<!--  -->
 
-<div id="newsletter" class="section-p1 section-m1">
-    <div class="newstext">
-        <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-    </div>
-    <div class="form">
-        <input type="text" placeholder="Your email address">
-        <button class="normal"> Sign Up</button>
-    
-    </div>
-</div>
+@include('footer')
 
-<footer class="section-p1">
-    <div class="col">
-        <img class="logo" src="images/logo.png" alt"">
-        <h4>Contact</h4>
-        <p><strong>Phone: </strong>+01 222 365</p>
-        <p><strong>Address: </strong>562 Weliington Road, Street 33, California</p>
-        <div class="follow">
-            <div class="icon">
-                <i class="fab fa-facebook-f" ></i>
-                <i class="fab fa-twitter" ></i>
-                <i class="fab fa-instagram" ></i>
-                <i class="fab fa-pinterest" ></i>
-                <i class="fab fa-youtube" ></i>
-
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col">
-        <h4>About</h4>
-        <a href="#">About us</a>
-        <a href="#">Delivery Informtaion</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms & Conditions</a>
-        <a href="#">Contact us</a>
-    </div>
-
-    <div class="col">
-        <h4>My Account</h4>
-        <a href="#">Sign In</a>
-        <a href="#">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="#">Track My Order</a>
-        <a href="#">Help</a>
-
-    </div>
-
-    <div class="col install">
-        <h4>Install Apps</h4>
-        <p>From app store or google play</p>
-        <div class="row">
-            <img src="images/pay/app.jpg" alt="">
-            <img src="images/pay/play.jpg" alt="">
-        </div>
-        <p>Secured Payment Gateways</p>
-        <img src="images/pay/pay.png" alt="">
-
-    </div>
-
-    <div class="copyright">
-        <p>@ 2021, Tech2 - HTML CSS Ecommerce Template</p>
-    </div>
-    
-
-
-</footer>
 
 <script>
-        var MainImg = document.getElementById("MainImg");
-        var smallimg = document.getElementsByClassName("small-img");
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("sizeModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalBtn = document.getElementsByClassName("close")[0];
+    const continueBtn = document.getElementById("continueBtn");
+    const sizeSpan = document.getElementById("size");
 
-        smallimg[0].onclick = function(){
-            MainImg.src = smallimg[0].src;
-        }
-        smallimg[1].onclick = function(){
-            MainImg.src = smallimg[1].src;
-        }
-        smallimg[2].onclick = function(){
-            MainImg.src = smallimg[2].src;
-        }
-        smallimg[3].onclick = function(){
-            MainImg.src = smallimg[3].src;
-        }
+    // Function to open the modal
+    function openModal() {
+        modal.style.display = "block";
+    }
 
-    </script>
-<!-- <link href="{{ asset('components/sxript.js') }}" rel="stylesheet">    Assuming your CSS file is in public/css/style.css -->
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Initially hide the modal
+    closeModal();
+
+    // Open the modal when clicking on the "Need help with size?" link
+    openModalBtn.addEventListener("click", openModal);
+
+    // Close the modal when clicking on the close button
+    closeModalBtn.addEventListener("click", closeModal);
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    };
+
+    // Close the modal when the "MY SIZE" button is clicked
+    continueBtn.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        // Get user input from the form
+        var height = document.getElementById("height").value;
+        var weight = document.getElementById("weight").value;
+        var age = document.getElementById("age").value;
+
+        // Create an object with user input
+        var data = {
+            height: height,
+            weight: weight,
+            age: age
+        };
+
+        // Make a POST request using fetch
+        fetch('http://127.0.0.1:5000/predict-size', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json()) // Parse the JSON response
+        .then(data => {
+            // Use the data received from the server
+            console.log(data);
+            // Update the sizePlaceholder with the received data
+            sizeSpan.textContent = data.size_prediction;
+            // Close the modal after receiving the prediction
+            closeModal();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+</script>
+
+
 
 
 </body>
+
 </html>
+

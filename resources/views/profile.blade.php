@@ -1,114 +1,176 @@
+@include('header')
 
+<!-- resources/views/profile.blade.php -->
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tech2etc Ecommerce Tutorial</title>
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e2e8f0;
+            color: #1a202c;
+            text-align: left;
+            margin-top: 20px;
+        }
 
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">    <!-- Assuming your CSS file is in public/css/style.css -->
-    </head>
+        .main-body {
+            padding: 15px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .mb-3,
+        .my-3 {
+            margin-bottom: 1rem!important;
+        }
+
+        .bg-gray-300 {
+            background-color: #e2e8f0;
+        }
+
+        .h-100 {
+            height: 100%!important;
+        }
+
+        .shadow-none {
+            box-shadow: none!important;
+        }
+        .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.orders-table th,
+.orders-table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: center;
+}
+
+.orders-table th {
+    background-color: #f8f9fa;
+}
+
+.orders-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.orders-table tbody tr:hover {
+    background-color: #e2e8f0;
+}
+
+.orders-table img {
+    max-width: 100px;
+    max-height: 100px;
+}
+h6{
+    padding-left:12px;
+    font-weight: bold;
+}
+
+    </style>
+</head>
 <body>
-<div id="header">
-        <a href="#"><img src="images/logo.png" class="logo" alt=""></a>
-        <div>
-            <ul id="navbar">
-                <li><a href="{{ url('/') }}">HOME</a></li>
-                <li><a href="{{ url('/shop') }}">SHOP</a></li>
-                <li><a href="{{ url('/blog') }}">BLOG</a></li>
-                <li><a href="{{ url('/about') }}">ABOUT</a></li>
-                <li><a href="{{ url('/contactUs') }}">CONTACT</a></li>
-                <li id="lg-bag"><a href="{{ url('/cart') }}"><i class="far fa-shopping-bag"></i></a></li>
-                <li id="lg-profile" class="profile-icon"><a href="#"><i class="far fa-user"></i></a>
-                <div class="tooltip">
-                <a href="{{ url('login') }}">Sign In / Register</a>
-                <a href="{{ url('my-orders') }}">My Orders</a>
+
+<div class="container main-body">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a href="{{ url('/welcome') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+        </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+
+    <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                            <h4>{{ $user->name }}</h4>
+                            <p class="text-secondary mb-1"><b>User ID:</b> {{ $user->id }}</p>
+                            <p class="text-muted font-size-sm">{{ $user->email }}</p>
+                            <p class="text-muted font-size-sm"><b>Joined Date: </b>{{ $user->created_at->format('F j, Y') }}</p>
+                            @auth('user')
+    @if(Auth::guard('user')->id() == 3)
+        <a href="{{ route('admin') }}" style="font-weight: bold; color: black;">Manage Desk</a>
+    @endif
+@endauth
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </li>
-
-                <a href="#" id="close"><i class="far fa-times"></i></a>
-            </ul>
-        </div>
-        <div id="mobile">
-            <a href="cart"><i class="far fa-shopping-bag"></i></a>
-            <i id="bar" class="fas fa-outdent"></i>
-
-        </div>
-</div>
-
-
-<div id="newsletter" class="section-p1 section-m1">
-    <div class="newstext">
-        <h4>Sign Up For Newsletters</h4>
-        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-    </div>
-    <div class="form">
-        <input type="text" placeholder="Your email address">
-        <button class="normal"> Sign Up</button>
-    
-    </div>
-</div>
-
-<footer class="section-p1">
-    <div class="col">
-        <img class="logo" src="images/logo.png" alt"">
-        <h4>Contact</h4>
-        <p><strong>Phone: </strong>+01 222 365</p>
-        <p><strong>Address: </strong>562 Weliington Road, Street 33, California</p>
-        <div class="follow">
-            <div class="icon">
-                <i class="fab fa-facebook-f" ></i>
-                <i class="fab fa-twitter" ></i>
-                <i class="fab fa-instagram" ></i>
-                <i class="fab fa-pinterest" ></i>
-                <i class="fab fa-youtube" ></i>
-
+            <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <a href="{{ route('logout') }}" style="font-weight: bold; color: black;">Sign Out</a>
+                    </li>
+                    <!-- Other list items -->
+                </ul>
             </div>
         </div>
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <!-- Profile details -->
+                    <div class="row">
+                    <h6> MY ORDERS</h6>
+                    </div>
+                    <table class="table orders-table">
+        <thead> 
+            <tr>
+                <th>Image</th>
+                <th>Order ID</th>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Size</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($orderItems as $order)
+            <tr>
+                <td>
+                    <img src="{{ asset('images/products/' . $order->product_id . '.jpg') }}" alt="{{ $order->product->name }}">
+                </td>
+                <td>{{ $order->order_id }}</td>
+                <td>{{ $order->product_id }}</td>
+                <td>{{ $order->quantity }}</td>
+                <td>{{ $order->size }}</td>
+                <td>{{ $order->created_at->format('F j, Y') }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-    </div>
-
-    <div class="col">
-        <h4>About</h4>
-        <a href="#">About us</a>
-        <a href="#">Delivery Informtaion</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms & Conditions</a>
-        <a href="#">Contact us</a>
-    </div>
-
-    <div class="col">
-        <h4>My Account</h4>
-        <a href="#">Sign In</a>
-        <a href="#">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="#">Track My Order</a>
-        <a href="#">Help</a>
-
-    </div>
-
-    <div class="col install">
-        <h4>Install Apps</h4>
-        <p>From app store or google play</p>
-        <div class="row">
-            <img src="images/pay/app.jpg" alt="">
-            <img src="images/pay/play.jpg" alt="">
+                    <!-- Other profile details -->
+                </div>
+            </div>
+            <!-- Other cards and content -->
         </div>
-        <p>Secured Payment Gateways</p>
-        <img src="images/pay/pay.png" alt="">
-
     </div>
-
-    <div class="copyright">
-        <p>@ 2021, Tech2 - HTML CSS Ecommerce Template</p>
-    </div>
-    
-
-
-</footer>
-
-<link href="{{ asset('components/sxript.js') }}" rel="stylesheet">    <!-- Assuming your CSS file is in public/css/style.css -->
-
+</div>
 
 </body>
+</html>
+
+@include('footer')

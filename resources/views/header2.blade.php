@@ -23,9 +23,7 @@
    
     </nav>
    
-    <div class="checkout">
-        <a href="{{ route('home') }}">CHECKOUT</a>
-</div>
+  
 </div class="Header2">
 </header2>
 
